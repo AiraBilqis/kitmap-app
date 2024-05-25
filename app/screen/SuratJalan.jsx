@@ -94,17 +94,19 @@ const SuratJalan = () => {
         });
 }, []);
   
-  const handleUnduh = async (link) => {
+const handleUnduh = async (link, isLastUnduh) => {
     WebBrowser.openBrowserAsync(link);
-    firebase.firestore().collection("mastersupir").doc(firebase.auth().currentUser.uid).update({
-      status: false
-    })
-    .then(() => {
-      console.log("Document successfully updated!");
-    })
-    .catch((error) => {
-      console.error("Error updating document: ", error);
-    });
+    if (isLastUnduh) {
+      firebase.firestore().collection("mastersupir").doc(firebase.auth().currentUser.uid).update({
+        status: false
+      })
+      .then(() => {
+        console.log("Document successfully updated!");
+      })
+      .catch((error) => {
+        console.error("Error updating document: ", error);
+      });
+    }
   };
 
   const handleHome = () =>{
@@ -128,8 +130,8 @@ const SuratJalan = () => {
                 
                 <TouchableOpacity onPress={handleLogout}>
                     <View style={{ alignItems: 'center' }}>
-                        <Icon name="logout" size={24} color="white" onPress={handleLogout} />
-                        <Text style={{ color: 'white', fontSize: 16 }}>KELUAR</Text>
+                        <Icon name="logout" size={22} color="white" onPress={handleLogout} />
+                        <Text style={{ color: 'white', fontSize: 14 }}>KELUAR</Text>
                     </View>
                 </TouchableOpacity>
             </View>
@@ -154,7 +156,7 @@ const SuratJalan = () => {
 
                 ) : (
 
-                <View style={{ ...styles.backgroundContainer, height: 950 }}>
+                <View style={{ ...styles.backgroundContainer, height: 1000 }}>
                     <ScrollView>
                         <View style={styles.kerjaContainer} >
                             <Text style={styles.titleHomepage}>SURAT JALAN DAN BAST</Text>
@@ -167,10 +169,10 @@ const SuratJalan = () => {
                             </TouchableOpacity>
                             <Text style={styles.textUnduh}>Surat Jalan dan Berita Acara berhasil dibuat!</Text>
                             <Text style={styles.textUnduh2}>Silahkan unduh surat dibawah ini</Text>
-                            <View style={{ width: '100%', height: 210, backgroundColor: '#dee3e1', marginTop: 30, borderRadius: 28, flexDirection: 'column', paddingHorizontal: 16}}>
+                            <View style={{ width: '100%', height: 240, backgroundColor: '#dee3e1', marginTop: 30, borderRadius: 28, flexDirection: 'column', paddingHorizontal: 16}}>
                                 <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 10}}>
                                     <Image source={require('../assets/file.png')} style={{ width: 16 }} resizeMode='contain' />
-                                    <Text style={{ color: 'black', fontSize: 14, marginLeft: 16 }}>{namaFile}</Text>
+                                    <Text style={styles.fileNameText}>{namaFile}</Text>
                                 </View>
                                 <View style={{ width: '100%', height: 152, backgroundColor: '#dee3e1', borderRadius: 28, flexDirection: 'column', paddingHorizontal: 16}}>
                                     <BlurView intensity={100} style={{ ...StyleSheet.absoluteFill }}>
@@ -178,16 +180,16 @@ const SuratJalan = () => {
                                     </BlurView>
                                 </View>
                             </View>
-                            <TouchableOpacity onPress={() => handleUnduh(suratJalanLink)} style={{ width:'50%', alignItems: 'center' }}>
+                            <TouchableOpacity onPress={() => handleUnduh(suratJalanLink, false)} style={{ width:'55%', alignItems: 'center' }}>
                                 <View style={{ width: '100%', height: 40, backgroundColor: '#159947', marginTop: 14, borderRadius: 28, alignItems: 'center', justifyContent: 'center'}}>
                                     <Text style={{ color: 'white', fontSize: 13 }}>UNDUH SURAT JALAN</Text>
                                 </View>
                             </TouchableOpacity>
 
-                            <View style={{ width: '100%', height: 210, backgroundColor: '#dee3e1', marginTop: 30, borderRadius: 28, flexDirection: 'column', paddingHorizontal: 16}}>
+                            <View style={{ width: '100%', height: 225, backgroundColor: '#dee3e1', marginTop: 30, borderRadius: 28, flexDirection: 'column', paddingHorizontal: 16}}>
                                 <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 10}}>
                                     <Image source={require('../assets/file.png')} style={{ width: 16 }} resizeMode='contain' />
-                                    <Text style={{ color: 'black', fontSize: 14, marginLeft: 16 }}>{namaFile2}</Text>
+                                    <Text style={styles.fileNameText}>{namaFile2}</Text>
                                 </View>
                                 <View style={{ width: '100%', height: 152, backgroundColor: '#dee3e1', borderRadius: 28, flexDirection: 'column', paddingHorizontal: 16}}>
                                     <BlurView intensity={100} style={{ ...StyleSheet.absoluteFill }}>
@@ -195,7 +197,7 @@ const SuratJalan = () => {
                                     </BlurView>
                                 </View>
                             </View>
-                            <TouchableOpacity onPress={() => handleUnduh(beritaAcaraLink)} style={{ width:'50%', alignItems: 'center' }}>
+                            <TouchableOpacity onPress={() => handleUnduh(beritaAcaraLink, true)} style={{ width:'55%', alignItems: 'center' }}>
                                 <View style={{ width: '100%', height: 40, backgroundColor: '#159947', marginTop: 14, borderRadius: 28, alignItems: 'center', justifyContent: 'center'}}>
                                     <Text style={{ color: 'white', fontSize: 13 }}>UNDUH BERITA ACARA</Text>
                                 </View>
@@ -343,7 +345,7 @@ const styles = StyleSheet.create({
   backgroundContainer:{
       marginHorizontal: 28,
       marginTop: 20,
-      height: 620,
+      height: 530,
       backgroundColor: "#f0f0f0",
       borderWidth: 3,
       borderColor: '#bae8c6',
@@ -367,7 +369,7 @@ const styles = StyleSheet.create({
       fontSize: 17,
   },
   haiText:{
-      fontSize: 28,
+      fontSize: 26,
       color: "#ffffff",
   },
   contentContainer: {
@@ -382,5 +384,14 @@ const styles = StyleSheet.create({
   unduhContainer: {
       marginTop: 20,
   },
-
+  fileNameText: {
+    color: 'black',
+    fontSize: 14,
+    marginLeft: 16,
+    marginTop: 9,
+    marginBottom: 9,
+    flex: 1,
+    flexWrap: 'wrap', // Membiarkan teks membungkus jika terlalu panjang
+    maxWidth: '80%', // Atur lebar maksimal untuk teks
+  }
 })
