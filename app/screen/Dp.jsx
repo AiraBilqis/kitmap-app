@@ -68,8 +68,8 @@ const Dp = () => {
   
             <TouchableOpacity onPress={handleLogout}>
               <View style={{ alignItems: 'center' }}>
-                <Icon name="logout" size={24} color="white" onPress={handleLogout} />
-                <Text style={{ color: 'white', fontSize: 16 }}>KELUAR</Text>
+                <Icon name="logout" size={22} color="white" onPress={handleLogout} />
+                <Text style={{ color: 'white', fontSize: 14 }}>KELUAR</Text>
               </View>
             </TouchableOpacity>
           </View>
@@ -91,7 +91,7 @@ const Dp = () => {
                 </View>
               </View>  
             ) : (
-              <View style={{ ...styles.backgroundContainer, height: 950 }}>
+              <View style={{ ...styles.backgroundContainer, height: 930 }}>
                 <ScrollView>
                   <View style={styles.kerjaContainer} >
                     <Text style={styles.titleHomepage}>CEK GAJI</Text>
@@ -179,7 +179,7 @@ const Dp = () => {
       flex: 1,
     },
     haiText: {
-      fontSize: 28,
+      fontSize: 26,
       color: "#ffffff",
     },
     topImageContainer: {
@@ -220,13 +220,13 @@ const Dp = () => {
     },
     backgroundContainer: {
       marginHorizontal: 28,
-        marginTop: 20,
-        height: 550,
-        backgroundColor: "#f0f0f0",
-        borderWidth: 3,
-        borderColor: '#bae8c6',
-        borderRadius: 30,
-        padding: 10
+      marginTop: 20,
+      height: 550,
+      backgroundColor: "#f0f0f0",
+      borderWidth: 3,
+      borderColor: '#bae8c6',
+      borderRadius: 30,
+      padding: 10
     },
     kerjaContainer: {
       marginHorizontal: 18,
