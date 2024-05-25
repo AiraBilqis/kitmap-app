@@ -247,64 +247,61 @@ const Homepage = () => {
         navigation.navigate("LihatGaji");
     };
     return (
-
         <View style={{ height: '100%' }}>
-        <ImageBackground source={require("../assets/bg_atas.png")} style={{ width: '100%', height: 600 }}>
-
-            <View style={{ backgroundColor: 'rgba(0,0,0,0.5)', height: 40 }}>
-            </View>
-
-            <View style={{ flexDirection: 'row', marginTop: 20, justifyContent: "space-between", paddingHorizontal: 28 }}>
-                <Text style={styles.haiText} >HI, {namalengkap}!</Text>
-                
-                <TouchableOpacity onPress={handleLogout}>
-                    <View style={{ alignItems: 'center' }}>
-                        <Icon name="logout" size={24} color="white" onPress={handleLogout} />
-                        <Text style={{ color: 'white', fontSize: 16 }}>KELUAR</Text>
-                    </View>
-                </TouchableOpacity>
-            </View>
-
-            <View style={styles.backgroundContainer}>
-                <View style={styles.kerjaContainer} >
-                        <Text style={styles.titleHomepage}>MARI BEKERJA</Text>
+            <ImageBackground source={require("../assets/bg_atas.png")} style={{ width: '100%', height: 600 }}>
+                <View style={{ backgroundColor: 'rgba(0,0,0,0.5)', height: 40 }}>
                 </View>
-                <TouchableOpacity onPress={handleSuratJalan}>
-                    <View style={styles.nameContainer} >
-                        <Image source={require("../assets/logo_suratjalan.png")} style={styles.userImage}/>
-                        <Text style={styles.textInput}>SURAT JALAN</Text>
+
+                <View style={{ flexDirection: 'row', marginTop: 20, justifyContent: "space-between", paddingHorizontal: 28 }}>
+                    <Text style={styles.haiText} >HI, {namalengkap}!</Text>
+                    
+                    <TouchableOpacity onPress={handleLogout}>
+                        <View style={{ alignItems: 'center' }}>
+                            <Icon name="logout" size={22} color="white" onPress={handleLogout} />
+                            <Text style={{ color: 'white', fontSize: 14 }}>KELUAR</Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
+
+                <View style={styles.backgroundContainer}>
+                    <View style={styles.kerjaContainer} >
+                            <Text style={styles.titleHomepage}>MARI BEKERJA</Text>
                     </View>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={handleLihatGaji}>
-                    <View style={styles.passwordContainer} >
-                        <Image source={require("../assets/logo_gaji.png")} style={styles.passwordImage}/>
-                        <Text style={styles.textInput}>LIHAT GAJI</Text>
-                    </View>
-                </TouchableOpacity>
-                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                    <View style={{ position: 'absolute', bottom: 0 }}>
-                        <CustomSwitch />
+                    <TouchableOpacity onPress={handleSuratJalan}>
+                        <View style={styles.nameContainer} >
+                            <Image source={require("../assets/logo_suratjalan.png")} style={styles.userImage}/>
+                            <Text style={styles.textInput}>SURAT JALAN</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={handleLihatGaji}>
+                        <View style={styles.passwordContainer} >
+                            <Image source={require("../assets/logo_gaji.png")} style={styles.passwordImage}/>
+                            <Text style={styles.textInput}>LIHAT GAJI</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                        <View style={{ position: 'absolute', bottom: 0 }}>
+                            <CustomSwitch />
+                        </View>
                     </View>
                 </View>
-            </View>
+            </ImageBackground>
 
-            
-        </ImageBackground>
-        <ImageBackground source={require("../assets/footer.png")} resizeMode='stretch' 
-            style={{
-                position: 'absolute',
-                bottom: 0,
-                width: '100%',
-                height: 80,
-                alignItems: 'center',
-                justifyContent: 'center'
-            }}>
-                <TouchableOpacity onPress={handleHome}>
-                    <View style={{ alignItems: 'center' }}>
-                        <Icon name="home" size={52} color="white" onPress={handleHome} />
-                    </View>
-                </TouchableOpacity>
-        </ImageBackground>
+            <ImageBackground source={require("../assets/footer.png")} resizeMode='stretch' 
+                style={{
+                    position: 'absolute',
+                    bottom: 0,
+                    width: '100%',
+                    height: 80,
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                }}>
+                    <TouchableOpacity onPress={handleHome}>
+                        <View style={{ alignItems: 'center' }}>
+                            <Icon name="home" size={52} color="white" onPress={handleHome} />
+                        </View>
+                    </TouchableOpacity>
+            </ImageBackground>
         </View>
       )
 }
@@ -341,7 +338,7 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         marginHorizontal: 20,
         elevation: 10,
-        paddingVertical: 10,
+        paddingVertical: 5,
         alignItems: "center",
         marginTop: 40,
     },
@@ -363,7 +360,7 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         marginHorizontal: 20,
         elevation: 10,
-        paddingVertical: 10,
+        paddingVertical: 5,
         alignItems: "center",
         marginTop: 20,
     },
@@ -407,16 +404,16 @@ const styles = StyleSheet.create({
     backgroundContainer:{
         marginHorizontal: 28,
         marginTop: 20,
-        height: 520,
+        height: 510,
         backgroundColor: "#f0f0f0",
         borderWidth: 3,
         borderColor: '#bae8c6',
         borderRadius: 30,
-        padding: 10
+        padding: 10,
     },
     kerjaContainer:{
         marginHorizontal: 18,
-        marginTop: 10,
+        marginTop: 15,
         backgroundColor: "#159947",
         flexDirection: "row",
         borderRadius: 50,
@@ -431,7 +428,7 @@ const styles = StyleSheet.create({
         fontSize: 17,
     },
     haiText:{
-        fontSize: 28,
+        fontSize: 26,
         color: "#ffffff",
     },
 
