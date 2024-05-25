@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#196850",
         flexDirection: "row",
         borderRadius: 10,
-        marginHorizontal: 150,
+        marginHorizontal: 135,
         elevation: 10,
         marginVertical: 20,
         alignItems: "center",
