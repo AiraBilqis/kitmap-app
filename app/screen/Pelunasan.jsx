@@ -192,34 +192,34 @@ const Pelunasan = () => {
     return (
       <View style={{ flex: 1 }}>
         <ImageBackground source={require("../assets/bg_atas.png")} style={{ width: '100%', height: screenHeight - 80 }}>
-        <View style={{ backgroundColor: 'rgba(0,0,0,0.5)', height: 40 }}>
-        </View>
-  
-        <View style={{ flexDirection: 'row', marginTop: 20, justifyContent: "space-between", paddingHorizontal: 28 }}>
-            <Text style={styles.haiText} >HI, {namalengkap}!</Text>
-            
-            <TouchableOpacity onPress={handleLogout}>
-                <View style={{ alignItems: 'center' }}>
-                    <Icon name="logout" size={24} color="white" onPress={handleLogout} />
-                    <Text style={{ color: 'white', fontSize: 16 }}>KELUAR</Text>
-                </View>
-            </TouchableOpacity>
-        </View>
-        <View style={styles.backgroundContainer}>
-          <ScrollView>
-            <View style={styles.kerjaContainer} >
-                <Text style={styles.titleHomepage}>CEK GAJI</Text>
-            </View>
-            <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: 100 }}>
-              <Image source={require('../assets/ceklisicon.png')} style={{ width: 150, height: 150, marginTop: 20 }} />
+          <View style={{ backgroundColor: 'rgba(0,0,0,0.5)', height: 40 }}>
+          </View>
+    
+          <View style={{ flexDirection: 'row', marginTop: 20, justifyContent: "space-between", paddingHorizontal: 28 }}>
+              <Text style={styles.haiText} >HI, {namalengkap}!</Text>
+              
+              <TouchableOpacity onPress={handleLogout}>
+                  <View style={{ alignItems: 'center' }}>
+                      <Icon name="logout" size={22} color="white" onPress={handleLogout} />
+                      <Text style={{ color: 'white', fontSize: 14 }}>KELUAR</Text>
+                  </View>
+              </TouchableOpacity>
+          </View>
+          <View style={styles.backgroundContainer}>
+            <ScrollView>
+              <View style={styles.kerjaContainer} >
+                  <Text style={styles.titleHomepage}>CEK GAJI</Text>
+              </View>
+              <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: 100 }}>
+                <Image source={require('../assets/ceklisicon.png')} style={{ width: 150, height: 150 }} />
 
-            </View>
-            <View style={styles.contentContainer}>
-              <Text style={styles.text}>Data berhasil dikirim!</Text>
-              <Text style={{  }}>Silakan tunggu sejenak.</Text>
-            </View>
-          </ScrollView>
-        </View>
+              </View>
+              <View style={styles.contentContainer}>
+                <Text style={styles.text}>Data berhasil dikirim!</Text>
+                <Text style={{  }}>Silakan tunggu sejenak.</Text>
+              </View>
+            </ScrollView>
+          </View>
         </ImageBackground>
         <ImageBackground source={require("../assets/footer.png")} resizeMode='stretch' 
             style={{
@@ -243,57 +243,57 @@ const Pelunasan = () => {
     return (
       <View style={{ flex: 1 }}>
         <ImageBackground source={require("../assets/bg_atas.png")} style={{ width: '100%', height: screenHeight - 80 }}>
-        <View style={{ backgroundColor: 'rgba(0,0,0,0.5)', height: 40 }}>
-        </View>
-  
-        <View style={{ flexDirection: 'row', marginTop: 20, justifyContent: "space-between", paddingHorizontal: 28 }}>
-            <Text style={styles.haiText} >HI, {namalengkap}!</Text>
-            
-            <TouchableOpacity onPress={handleLogout}>
-                <View style={{ alignItems: 'center' }}>
-                    <Icon name="logout" size={24} color="white" onPress={handleLogout} />
-                    <Text style={{ color: 'white', fontSize: 16 }}>KELUAR</Text>
-                </View>
-            </TouchableOpacity>
-        </View>
-        <ScrollView>
-        <View style={{ ...styles.backgroundContainer, height: 610 }}>
+          <View style={{ backgroundColor: 'rgba(0,0,0,0.5)', height: 40 }}>
+          </View>
+    
+          <View style={{ flexDirection: 'row', marginTop: 20, justifyContent: "space-between", paddingHorizontal: 28 }}>
+              <Text style={styles.haiText} >HI, {namalengkap}!</Text>
+              
+              <TouchableOpacity onPress={handleLogout}>
+                  <View style={{ alignItems: 'center' }}>
+                      <Icon name="logout" size={22} color="white" onPress={handleLogout} />
+                      <Text style={{ color: 'white', fontSize: 14 }}>KELUAR</Text>
+                  </View>
+              </TouchableOpacity>
+          </View>
+          <ScrollView>
+            <View style={{ ...styles.backgroundContainer, height: 610 }}>
 
-          <View style={styles.kerjaContainer} >
-              <Text style={styles.titleHomepage}>CEK GAJI</Text>
-          </View>
-          <TouchableOpacity onPress={() => {}}>
-              <View style={styles.unduhContainer} >
-                  <Image source={require("../assets/unduhicon.png")} style={{ width: 100}} resizeMode='contain'/>
-            </View>
-          </TouchableOpacity>
-          <Text style={styles.textUnduh}>Gaji berhasil diproses!</Text>
-          <Text style={styles.textUnduh2}>Silakan unduh invoice dibawah ini.</Text>
-          <View style={{ width: '100%', height: 210, backgroundColor: '#dee3e1', marginTop: 30, borderRadius: 28, flexDirection: 'column', paddingHorizontal: 16}}>
-              <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 10}}>
-                  <Image source={require('../assets/file.png')} style={{ width: 16 }} resizeMode='contain' />
-                  <Text style={{ color: 'black', fontSize: 14, marginLeft: 16 }}>BUKTI INVOICE PELUNASAN</Text>
+              <View style={styles.kerjaContainer} >
+                  <Text style={styles.titleHomepage}>CEK GAJI</Text>
               </View>
-              <View style={{ width: '100%', height: 152, backgroundColor: '#dee3e1', borderRadius: 28, flexDirection: 'column', paddingHorizontal: 16}}>
-                <BlurView intensity={100} style={{ ...StyleSheet.absoluteFill }}>
-                  {linkBuktiTransfer ? (
-                    <TouchableOpacity onPress={handleCetak}>
-                      <Image source={{ uri: linkBuktiTransfer }} style={{ width: '100%', height: 152 }} resizeMode='contain' />
-                    </TouchableOpacity>
-                  ) : null}
-                </BlurView>
-              </View>
-          </View>
-          <View style={{ height: 20 }} />
-          <View style={{ alignItems: 'center' }}>
-            <TouchableOpacity onPress={handleCetak} style={{ width:'50%', alignItems: 'center' }}>
-                <View style={{ width: '100%', height: 40, backgroundColor: '#159947', marginTop: 14, borderRadius: 28, alignItems: 'center', justifyContent: 'center'}}>
-                    <Text style={{ color: 'white', fontSize: 16 }}>CETAK</Text>
+              <TouchableOpacity onPress={() => {}}>
+                  <View style={styles.unduhContainer} >
+                      <Image source={require("../assets/unduhicon.png")} style={{ width: 100}} resizeMode='contain'/>
                 </View>
-            </TouchableOpacity>
-          </View>
-        </View>
-        </ScrollView>
+              </TouchableOpacity>
+              <Text style={styles.textUnduh}>Gaji berhasil diproses!</Text>
+              <Text style={styles.textUnduh2}>Silakan unduh invoice dibawah ini.</Text>
+              <View style={{ width: '100%', height: 210, backgroundColor: '#dee3e1', marginTop: 30, borderRadius: 28, flexDirection: 'column', paddingHorizontal: 16}}>
+                  <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 10}}>
+                      <Image source={require('../assets/file.png')} style={{ width: 16 }} resizeMode='contain' />
+                      <Text style={{ color: 'black', fontSize: 14, marginLeft: 16 }}>BUKTI INVOICE PELUNASAN</Text>
+                  </View>
+                  <View style={{ width: '100%', height: 152, backgroundColor: '#dee3e1', borderRadius: 28, flexDirection: 'column', paddingHorizontal: 16}}>
+                    <BlurView intensity={100} style={{ ...StyleSheet.absoluteFill }}>
+                      {linkBuktiTransfer ? (
+                        <TouchableOpacity onPress={handleCetak}>
+                          <Image source={{ uri: linkBuktiTransfer }} style={{ width: '100%', height: 152 }} resizeMode='contain' />
+                        </TouchableOpacity>
+                      ) : null}
+                    </BlurView>
+                  </View>
+              </View>
+              <View style={{ height: 20 }} />
+              <View style={{ alignItems: 'center' }}>
+                <TouchableOpacity onPress={handleCetak} style={{ width:'50%', alignItems: 'center' }}>
+                    <View style={{ width: '100%', height: 40, backgroundColor: '#159947', marginTop: 6, borderRadius: 28, alignItems: 'center', justifyContent: 'center'}}>
+                        <Text style={{ color: 'white', fontSize: 16 }}>CETAK</Text>
+                    </View>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </ScrollView>
         </ImageBackground>
         <ImageBackground source={require("../assets/footer.png")} resizeMode='stretch' 
             style={{
@@ -325,8 +325,8 @@ const Pelunasan = () => {
           
           <TouchableOpacity onPress={handleLogout}>
               <View style={{ alignItems: 'center' }}>
-                  <Icon name="logout" size={24} color="white" onPress={handleLogout} />
-                  <Text style={{ color: 'white', fontSize: 16 }}>KELUAR</Text>
+                  <Icon name="logout" size={22} color="white" onPress={handleLogout} />
+                  <Text style={{ color: 'white', fontSize: 14 }}>KELUAR</Text>
               </View>
           </TouchableOpacity>
       </View>
@@ -337,7 +337,6 @@ const Pelunasan = () => {
         <View style={styles.contentContainer}>
 
         <View style = {{ paddingLeft: 20, paddingRight: 20, width: '100%', marginTop: 20 }}>
-            
             <View style={{ height: 20 }} />
             <View style={{ width: '100%' }}>
                 <Text>Silakan Unggah Bukti Surat:</Text>
@@ -372,7 +371,7 @@ const Pelunasan = () => {
                 </View>
             ) : (
                 <TouchableOpacity onPress={handleSelectDocument}>
-                    <View style={{ flexDirection: 'row', width: '50%', height: screenHeight * 0.06, borderRadius: 30, alignItems: 'center', elevation: 10,  borderWidth: 1, borderColor: '#159947', backgroundColor: 'white', padding: 10}}>
+                    <View style={{ flexDirection: 'row', width: '55%', height: screenHeight * 0.06, borderRadius: 30, alignItems: 'center', elevation: 10,  borderWidth: 1, borderColor: '#159947', backgroundColor: 'white', padding: 10, marginTop:5}}>
                         <Image source={require('../assets/upload.png')} resizeMode='contain' style={{ width: 30 }}/>
                         <View style={{ width: 10 }} />
                         <Text style={{  }}>Pilih Surat</Text>
@@ -382,7 +381,7 @@ const Pelunasan = () => {
             </View>
 
             <View style={{ height: 25 }} />
-            <TouchableOpacity onPress={handleKirim} style={{ width:'50%', alignItems: 'center' }}>
+            <TouchableOpacity onPress={handleKirim} style={{ width:'55%', alignItems: 'center' }}>
                 <View style={{ width: '100%', height: 40, backgroundColor: '#159947', marginTop: 14, borderRadius: 28, alignItems: 'center', justifyContent: 'center'}}>
                     <Text style={{ color: 'white', fontSize: 16 }}>KIRIM</Text>
                 </View>
@@ -532,7 +531,7 @@ const styles = StyleSheet.create({
   backgroundContainer:{
       marginHorizontal: 28,
       marginTop: 20,
-      height: 550,
+      height: 510,
       backgroundColor: "#f0f0f0",
       borderWidth: 3,
       borderColor: '#bae8c6',
@@ -556,7 +555,7 @@ const styles = StyleSheet.create({
       fontSize: 17,
   },
   haiText:{
-      fontSize: 28,
+      fontSize: 26,
       color: "#ffffff",
   },
   contentContainer: {
