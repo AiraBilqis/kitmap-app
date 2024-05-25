@@ -57,8 +57,8 @@ const LihatGaji = () => {
           
           <TouchableOpacity onPress={handleLogout}>
               <View style={{ alignItems: 'center' }}>
-                  <Icon name="logout" size={24} color="white" onPress={handleLogout} />
-                  <Text style={{ color: 'white', fontSize: 16 }}>KELUAR</Text>
+                  <Icon name="logout" size={22} color="white" onPress={handleLogout} />
+                  <Text style={{ color: 'white', fontSize: 14 }}>KELUAR</Text>
               </View>
           </TouchableOpacity>
       </View>
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
       marginTop: 40,
   },
   userImage: {
-      marginLeft: 30,
+      marginLeft: 25,
       marginRight: 12,
       marginTop: 20,
       marginBottom: 20,
@@ -221,7 +221,7 @@ const styles = StyleSheet.create({
   backgroundContainer:{
       marginHorizontal: 28,
       marginTop: 20,
-      height: 550,
+      height: 500,
       backgroundColor: "#f0f0f0",
       borderWidth: 3,
       borderColor: '#bae8c6',
@@ -245,7 +245,7 @@ const styles = StyleSheet.create({
       fontSize: 17,
   },
   haiText:{
-      fontSize: 28,
+      fontSize: 26,
       color: "#ffffff",
   },
   contentContainer: {
