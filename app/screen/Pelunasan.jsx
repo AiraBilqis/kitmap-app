@@ -22,6 +22,8 @@ const Pelunasan = () => {
   const [isLunas, setIsLunas] = useState(false);
   const [linkBuktiTransfer, setLinkBuktiTransfer] = useState('');
 
+  const [uploadProgress, setUploadProgress] = useState(null);
+
   const [blobFile, setBlobFile] = useState(null);
 
   useEffect(() => {
@@ -140,51 +142,55 @@ const Pelunasan = () => {
     Linking.openURL(linkBuktiTransfer);
   };
 
-  const handleKirim = async () =>  {
+  const handleKirim = async () => {
     if (!selectedDocument) {
-        alert('Mohon lengkapi data yang diperlukan');
-        return;
+      alert('Mohon lengkapi data yang diperlukan');
+      return;
     }
     const userId = firebase.auth().currentUser.uid;
     firebase.firestore().collection("mastersupir").doc(userId).get()
-        .then(async (doc) => {
-            if (doc.exists) {
-              const storage = getStorage();
-              const metadata = {
-                contentType: 'image/jpeg'
-              };
-              const blob = await getBlobFroUri(selectedDocument.assets[0].uri);
-              const storageRef = ref(storage, `buktisurat/${userId}`);
-              const uploadTask = uploadBytesResumable(storageRef, blob, metadata);
-              uploadTask.on('state_changed', 
-                (snapshot) => {
-                  const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                  console.log('Upload is ' + progress + '% done');
-                  switch (snapshot.state) {
-                    case 'paused':
-                      console.log('Upload is paused');
-                      break;
-                    case 'running':
-                      console.log('Upload is running');
-                      break;
-                  }
-                }, 
-                (error) => {
-                  console.log(error);
-                }, 
-                () => {
-                  getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                    console.log('File available at', downloadURL);
-                    firebase.firestore().collection("mastersupir").doc(userId).update({
-                      pelunasanvalid: 'pending',
-                      linkbuktisurat: downloadURL
-                    });
-                  });
-                }
-              );
+      .then(async (doc) => {
+        if (doc.exists) {
+          const storage = getStorage();
+          const metadata = {
+            contentType: 'image/jpeg'
+          };
+          const blob = await getBlobFroUri(selectedDocument.assets[0].uri);
+          const storageRef = ref(storage, `buktisurat/${userId}`);
+          const uploadTask = uploadBytesResumable(storageRef, blob, metadata);
+  
+          uploadTask.on('state_changed',
+            (snapshot) => {
+              const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+              setUploadProgress(progress); // Update the state with the current progress
+              console.log('Upload is ' + progress + '% done');
+              switch (snapshot.state) {
+                case 'paused':
+                  console.log('Upload is paused');
+                  break;
+                case 'running':
+                  console.log('Upload is running');
+                  break;
               }
-          });
-  };
+            },
+            (error) => {
+              console.log(error);
+            },
+            () => {
+              getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                console.log('File available at', downloadURL);
+                firebase.firestore().collection("mastersupir").doc(userId).update({
+                  pelunasanvalid: 'pending',
+                  linkbuktisurat: downloadURL
+                }).then(() => {
+                  setUploadProgress(null); // Reset progress after successful upload
+                });
+              });
+            }
+          );
+        }
+      });
+  };  
 
   const navigation = useNavigation();
 
@@ -317,99 +323,131 @@ const Pelunasan = () => {
   return (
     <View style={{ flex: 1 }}>
       <ImageBackground source={require("../assets/bg_atas.png")} style={{ width: '100%', height: screenHeight - 80 }}>
-      <View style={{ backgroundColor: 'rgba(0,0,0,0.5)', height: 40 }}>
-      </View>
-
-      <View style={{ flexDirection: 'row', marginTop: 20, justifyContent: "space-between", paddingHorizontal: 28 }}>
-          <Text style={styles.haiText} >HI, {namalengkap}!</Text>
-          
+        <View style={{ backgroundColor: 'rgba(0,0,0,0.5)', height: 40 }} />
+        <View style={{ flexDirection: 'row', marginTop: 20, justifyContent: "space-between", paddingHorizontal: 28 }}>
+          <Text style={styles.haiText}>HI, {namalengkap}!</Text>
           <TouchableOpacity onPress={handleLogout}>
-              <View style={{ alignItems: 'center' }}>
-                  <Icon name="logout" size={22} color="white" onPress={handleLogout} />
-                  <Text style={{ color: 'white', fontSize: 14 }}>KELUAR</Text>
-              </View>
+            <View style={{ alignItems: 'center' }}>
+              <Icon name="logout" size={22} color="white" onPress={handleLogout} />
+              <Text style={{ color: 'white', fontSize: 14 }}>KELUAR</Text>
+            </View>
           </TouchableOpacity>
-      </View>
-      <View style={styles.backgroundContainer}>
-        <View style={styles.kerjaContainer} >
+        </View>
+        <View style={styles.backgroundContainer}>
+          <View style={styles.kerjaContainer}>
             <Text style={styles.titleHomepage}>CEK GAJI</Text>
-        </View>
-        <View style={styles.contentContainer}>
-
-        <View style = {{ paddingLeft: 20, paddingRight: 20, width: '100%', marginTop: 20 }}>
-            <View style={{ height: 20 }} />
-            <View style={{ width: '100%' }}>
+          </View>
+          <View style={styles.contentContainer}>
+            <View style={{ paddingLeft: 20, paddingRight: 20, width: '100%', marginTop: 20 }}>
+              <View style={{ height: 20 }} />
+              <View style={{ width: '100%' }}>
                 <Text>Silakan Unggah Bukti Surat:</Text>
-            </View>
-            {selectedDocument ? (
+              </View>
+              {selectedDocument ? (
                 <View style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'flex-start'
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'flex-start'
                 }}>
-                    <View style={{ 
-                            flexDirection: 'row', 
-                            paddingHorizontal: 20, 
-                            height: screenHeight * 0.06, 
-                            borderRadius: 30, 
-                            alignItems: 'center', 
-                            justifyContent: 'flex-start', // Aligns children along the horizontal axis
-                            elevation: 10,  
-                            borderWidth: 1, 
-                            borderColor: '#159947', 
-                            backgroundColor: 'white', 
-                            padding: 10
-                        }}>
-                        <Image source={require('../assets/file.png')} resizeMode='contain' style={{ width: 20 }}/>
-                        <View style={{ width: 10 }} />
-                        <Text style={{  }}>{selectedDocument.assets[0].name}</Text>
-                        <View style={{ width: 10 }} />
-                        <TouchableOpacity onPress={() => setSelectedDocument(null)} style={{ marginLeft: 'auto' }}>
-                            <Icon name="close" size={20} color="black" />
-                        </TouchableOpacity>
-                    </View>
+                  <View style={{
+                    flexDirection: 'row',
+                    paddingHorizontal: 20,
+                    height: screenHeight * 0.06,
+                    borderRadius: 30,
+                    alignItems: 'center',
+                    justifyContent: 'flex-start',
+                    elevation: 10,
+                    borderWidth: 1,
+                    borderColor: '#159947',
+                    backgroundColor: 'white',
+                    padding: 10
+                  }}>
+                    <Image source={require('../assets/file.png')} resizeMode='contain' style={{ width: 20 }} />
+                    <View style={{ width: 10 }} />
+                    <Text>{selectedDocument.assets[0].name}</Text>
+                    <View style={{ width: 10 }} />
+                    <TouchableOpacity onPress={() => setSelectedDocument(null)} style={{ marginLeft: 'auto' }}>
+                      <Icon name="close" size={20} color="black" />
+                    </TouchableOpacity>
+                  </View>
                 </View>
-            ) : (
+              ) : (
                 <TouchableOpacity onPress={handleSelectDocument}>
-                    <View style={{ flexDirection: 'row', width: '55%', height: screenHeight * 0.06, borderRadius: 30, alignItems: 'center', elevation: 10,  borderWidth: 1, borderColor: '#159947', backgroundColor: 'white', padding: 10, marginTop:5}}>
-                        <Image source={require('../assets/upload.png')} resizeMode='contain' style={{ width: 30 }}/>
-                        <View style={{ width: 10 }} />
-                        <Text style={{  }}>Pilih Surat</Text>
-                    </View>
+                  <View style={{
+                    flexDirection: 'row',
+                    width: '55%',
+                    height: screenHeight * 0.06,
+                    borderRadius: 30,
+                    alignItems: 'center',
+                    elevation: 10,
+                    borderWidth: 1,
+                    borderColor: '#159947',
+                    backgroundColor: 'white',
+                    padding: 10,
+                    marginTop: 5
+                  }}>
+                    <Image source={require('../assets/upload.png')} resizeMode='contain' style={{ width: 30 }} />
+                    <View style={{ width: 10 }} />
+                    <Text>Pilih Surat</Text>
+                  </View>
                 </TouchableOpacity>
-            )}
+              )}
             </View>
-
             <View style={{ height: 25 }} />
-            <TouchableOpacity onPress={handleKirim} style={{ width:'55%', alignItems: 'center' }}>
-                <View style={{ width: '100%', height: 40, backgroundColor: '#159947', marginTop: 14, borderRadius: 28, alignItems: 'center', justifyContent: 'center'}}>
-                    <Text style={{ color: 'white', fontSize: 16 }}>KIRIM</Text>
+            {uploadProgress !== null ? (
+              <View style={{ width: '100%', alignItems: 'center' }}>
+                <Text>Mengunggah: {Math.round(uploadProgress)}%</Text>
+                <View style={{
+                  width: '80%',
+                  height: 10,
+                  backgroundColor: '#e0e0e0',
+                  borderRadius: 5,
+                  overflow: 'hidden',
+                  marginTop: 10
+                }}>
+                  <View style={{
+                    width: `${uploadProgress}%`,
+                    height: '100%',
+                    backgroundColor: '#159947'
+                  }} />
                 </View>
-            </TouchableOpacity>
-          
+              </View>
+            ) : (
+              <TouchableOpacity onPress={handleKirim} style={{ width: '55%', alignItems: 'center' }}>
+                <View style={{
+                  width: '100%',
+                  height: 40,
+                  backgroundColor: '#159947',
+                  marginTop: 14,
+                  borderRadius: 28,
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}>
+                  <Text style={{ color: 'white', fontSize: 16 }}>KIRIM</Text>
+                </View>
+              </TouchableOpacity>
+            )}
+          </View>
         </View>
-      </View>
       </ImageBackground>
-      
       <KeyboardAvoidingView behavior={null} style={{ flex: 1 }}>
-        <ImageBackground source={require("../assets/footer.png")} resizeMode='stretch' 
-            style={{
-                position: 'absolute',
-                bottom: 0,
-                width: '100%',
-                height: 80,
-                alignItems: 'center',
-                justifyContent: 'center'
-            }}>
-            <TouchableOpacity onPress={handleHome}>
-                <View style={{ alignItems: 'center' }}>
-                    <Icon name="home" size={52} color="white" onPress={handleHome} />
-                </View>
-            </TouchableOpacity>
+        <ImageBackground source={require("../assets/footer.png")} resizeMode='stretch' style={{
+          position: 'absolute',
+          bottom: 0,
+          width: '100%',
+          height: 80,
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}>
+          <TouchableOpacity onPress={handleHome}>
+            <View style={{ alignItems: 'center' }}>
+              <Icon name="home" size={52} color="white" onPress={handleHome} />
+            </View>
+          </TouchableOpacity>
         </ImageBackground>
       </KeyboardAvoidingView>
     </View>
-  )
+  );  
 }
 
 export default Pelunasan
