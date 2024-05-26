@@ -115,7 +115,6 @@ const CustomSwitch = () => {
         }).start();
     };
 
-
     return(
         <View>
             <View style={{ marginBottom: 6, flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -258,7 +257,7 @@ const Homepage = () => {
                     <TouchableOpacity onPress={handleLogout}>
                         <View style={{ alignItems: 'center' }}>
                             <Icon name="logout" size={22} color="white" onPress={handleLogout} />
-                            <Text style={{ color: 'white', fontSize: 14 }}>KELUAR</Text>
+                            <Text style={{ color: 'white', fontSize: 12 }}>KELUAR</Text>
                         </View>
                     </TouchableOpacity>
                 </View>
@@ -428,7 +427,7 @@ const styles = StyleSheet.create({
         fontSize: 17,
     },
     haiText:{
-        fontSize: 26,
+        fontSize: 20,
         color: "#ffffff",
     },
 
